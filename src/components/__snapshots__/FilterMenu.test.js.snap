@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render Card component 1`] = `
+"<div className=\\"pa1\\">
+  <select onChange={[undefined]}>
+    <option defaultValue=\\"All\\">
+      All
+    </option>
+    <option value=\\"Customer Experience\\">
+      Customer Experience
+    </option>
+    <option value=\\"Engineering\\">
+      Engineering
+    </option>
+    <option value=\\"Operations\\">
+      Operations
+    </option>
+  </select>
+</div>"
+`;

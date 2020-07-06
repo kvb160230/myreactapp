@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render Card component 1`] = `
+"<Styled(MuiBox) p={1} m={1} css={{...}}>
+  <WithStyles(ForwardRef(Card)) className=\\"makeStyles-root-1\\">
+    <Styled(MuiBox) p={1}>
+      <WithStyles(ForwardRef(CardActionArea)) className=\\"ma2 grow bw2 shadow-2\\">
+        <WithStyles(ForwardRef(CardMedia)) className=\\"makeStyles-media-2\\" image=\\"https://robohash.org/undefined\\" />
+        <WithStyles(ForwardRef(CardContent))>
+          <WithStyles(ForwardRef(Typography)) gutterBottom={true} variant=\\"h5\\" component=\\"h4\\" />
+          <WithStyles(ForwardRef(Typography)) variant=\\"body2\\" color=\\"#e8eaf6\\" component=\\"p\\" />
+        </WithStyles(ForwardRef(CardContent))>
+      </WithStyles(ForwardRef(CardActionArea))>
+      <WithStyles(ForwardRef(CardActions)) className=\\"makeStyles-icons-3\\">
+        <WithStyles(ForwardRef(Typography)) variant=\\"body2\\" color=\\"#e8eaf6\\" component=\\"p\\" />
+        <a href=\\"mailto:undefined\\">
+          <WithStyles(ForwardRef(IconButton)) aria-label=\\"mail\\" size=\\"small\\" color=\\"primary\\">
+            <MailIcon />
+          </WithStyles(ForwardRef(IconButton))>
+        </a>
+      </WithStyles(ForwardRef(CardActions))>
+    </Styled(MuiBox)>
+  </WithStyles(ForwardRef(Card))>
+</Styled(MuiBox)>"
+`;
