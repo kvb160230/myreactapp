@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render Card component 1`] = `
+"<div className=\\"pa1\\">
+  <input className=\\"pa3 ba bg-washed-blue\\" type=\\"search\\" placeholder=\\"search name\\" onChange={[undefined]} />
+</div>"
+`;
