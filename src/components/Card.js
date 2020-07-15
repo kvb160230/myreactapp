@@ -33,6 +33,7 @@ export default function MediaCard(props) {
             p={1}
             m={1}
             css={{maxHeight: "auto", maxWidth: 300, width: "-webkit-fill-available"}}
+            className='box'
             >
             <Card className={classes.root}>
                 <Box p={1}>

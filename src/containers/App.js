@@ -29,15 +29,15 @@ class App extends Component {
 
             return (
 
-                <div className = 'tc b link white-80'>
+                <div className = 'main tc b link white-80'>
                     <h1 className = 'f2'>CEA Team</h1>
-                    <div>
+                    <div className = 'inputs'>
                         <SearchBox searchChange = {e => this.props.onSearchChange(e.target.value)} />
                         <FilterMenu filterChange = {e => this.props.onFilterChange(e.target.value)} />
                     </div>
                     
                     <Scroll>
-                        <CardList people = {this.props.people}/>
+                        <CardList className='cards' people = {this.props.people}/>
                     </Scroll>
                           
                 </div>
