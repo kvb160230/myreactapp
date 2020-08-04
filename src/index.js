@@ -10,6 +10,7 @@ import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import 'tachyons';
+import { BrowserRouter } from 'react-router-dom';
 
 
 const rootReducer = combineReducers({ getPeople });
@@ -36,9 +37,11 @@ export const store = createStore (rootReducer, initialStoreEnhancer());
 //The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met.
 
 ReactDOM.render(
+            <BrowserRouter>
                 <Provider store={store}>
                     <App />  
-                </Provider>, document.getElementById('root'));
+                </Provider>
+            </BrowserRouter>, document.getElementById('root'));
 
 // expose store when run in Cypress
 if (window.Cypress) {

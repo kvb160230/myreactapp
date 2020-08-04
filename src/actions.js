@@ -1,5 +1,5 @@
 import { setSearchField, setFilterField, requestPeople} from './action-creators.js';
-import { people } from './people';
+import { people } from './people.js';
 
 export const onSearchChange = (searchValue = '') => (dispatch) => {
    return Promise.all ([
@@ -16,16 +16,16 @@ export const onFilterChange = (filterValue = 'All') => (dispatch) => {
 
 }
 
-export const onRequestPeople = () => (dispatch, getState) => {
+export const onRequestPeople = (collectionsMap = people) => (dispatch, getState) => {
     const {searchField} = getState().getPeople;
     const {filterField} = getState().getPeople;
 
-     const filteredPeople = people.filter(person => {
+     const filteredPeople = collectionsMap.filter(person => {
         switch(searchField) {
             case null:
             case '':
                 if(filterField === 'All' || filterField === 'all') {
-                    return people;
+                    return collectionsMap;
                 }
                 return person.default.toLowerCase().includes(filterField.toLowerCase())
                 || person.team.toLowerCase().includes(filterField.toLowerCase());
@@ -42,6 +42,7 @@ export const onRequestPeople = () => (dispatch, getState) => {
         }
       })
    return dispatch(requestPeople(filteredPeople));
+    
 
 }
 

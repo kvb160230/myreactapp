@@ -1,67 +1,62 @@
-import React , {Component} from 'react';
-import PropTypes from 'prop-types';
-import CardList from '../components/CardList';
-import SearchBox from '../components/SearchBox';
-import Scroll from '../components/Scroll';
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
-import FilterMenu from '../components/FilterMenu';
-import connectComponent from '../connect-components.js';
-import { onSearchChange, onFilterChange, onRequestPeople} from "../actions.js";
 
-const propTypes = {
-    searchField: PropTypes.string.isRequired,
-    filterField: PropTypes.string.isRequired,
-    people: PropTypes.element.isRequired
-  };
+import Header from '../components/Header';
+import HomePage from '../pages/HomePage';
+import SignInPage from '../pages/SignInPage';
+import { auth, createUserProfileDocument } from '../firebase/firebase.utils';
 
-const defaultProps = {
-    searchField: '',
-    filterField: 'All',
-    people: [],
-  };
+class App extends React.Component{
+    constructor() {
+        super();
 
-class App extends Component {
-
-    componentDidMount() {
-         this.props.onRequestPeople();
-    }
-    render() {
-
-            return (
-
-                <div className = 'main tc b link white-80'>
-                    <h1 className = 'f2'>CEA Team</h1>
-                    <div className = 'inputs'>
-                        <SearchBox searchChange = {e => this.props.onSearchChange(e.target.value)} />
-                        <FilterMenu filterChange = {e => this.props.onFilterChange(e.target.value)} />
-                    </div>
-                    
-                    <Scroll>
-                        <CardList className='cards' people = {this.props.people}/>
-                    </Scroll>
-                          
-                </div>
-            );
+        this.state = {
+            currentUser: null,
+            isLoggedIn: null,
         }
     }
 
+    unsubscribeFromAuth = null;
 
+    componentDidMount() {
+        this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
+            if (user) {
+                const userRef = await createUserProfileDocument(user);
+        
+                userRef.onSnapshot(snapShot => {
+                  this.setState({
+                    currentUser: {
+                      id: snapShot.id,
+                      ...snapShot.data()
+                    }
+                  });
+        
+                  console.log(this.state);
+                });
+              }
 
-App.defaultProps = defaultProps;
-App.propTypes = propTypes;
+            this.setState({ currentUser: user});
+            if (user) { this.setState({ isLoggedIn: true })} 
+            else { this.setState({ isLoggedIn: false })}
+        })
+    }
 
-export default connectComponent((state) => {
-    const {searchField, filterField, people} = state.getPeople;
+    componentWillUnmount() {
+        this.unsubscribeFromAuth();
+    }
 
-    return {
-        searchField,
-        filterField,
-        people
-    };
-}, {
-    onSearchChange,
-    onFilterChange,
-    onRequestPeople,
-},(App))
-     //Subscribe to any store changes in the redux store
-    // action done from mapDispatchToProps will channge state from mapStateToProps
+    render() {
+        return (
+            <div>
+            <Header currentUser={this.state.currentUser} />
+              <Switch>
+                <Route path='/login' render={() => ( !this.state.isLoggedIn ? <SignInPage /> : <Redirect to='/' /> )}/>
+                <Route path='/' render={() => ( this.state.isLoggedIn ? <HomePage /> : <Redirect to='/login' /> )}/>
+              </Switch>
+            </div>
+          );
+        }
+    }
+
+export default App;
